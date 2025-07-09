@@ -33,7 +33,7 @@ int	ft_atoi(const char *str)
 int	parsing(int argc, char *argv[], t_args *args)
 {
 	if (argc != 5 && argc != 6)
-		return (write(1, "Wrong number of arguments!\n", 27), 0);
+		return (printf("Wrong number of arguments!\n"), 0);
 	args->number_of_philosophers = ft_atoi(argv[1]);
 	args->time_to_die = ft_atoi(argv[2]);
 	args->time_to_eat = ft_atoi(argv[3]);
@@ -45,7 +45,7 @@ int	parsing(int argc, char *argv[], t_args *args)
 		|| args->time_to_eat < 0 || args->time_to_sleep < 0 || (argc == 6
 			&& args->number_of_times_each_philosopher_must_eat < 0))
 	{
-		write(1, "Error: invalid arguments\n", 25);
+		printf("Error: invalid arguments\n");
 		return (0);
 	}
 	return (1);
