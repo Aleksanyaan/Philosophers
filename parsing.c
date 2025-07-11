@@ -30,17 +30,10 @@ int	ft_atoi(const char *str)
 	return (res);
 }
 
-int	parsing(int argc, char *argv[], t_args *args)
+int	parsing(int argc, t_args *args)
 {
 	if (argc != 5 && argc != 6)
 		return (printf("Wrong number of arguments!\n"), 0);
-	args->number_of_philosophers = ft_atoi(argv[1]);
-	args->time_to_die = ft_atoi(argv[2]);
-	args->time_to_eat = ft_atoi(argv[3]);
-	args->time_to_sleep = ft_atoi(argv[4]);
-	args->number_of_times_each_philosopher_must_eat = -1;
-	if (argc == 6)
-		args->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	if (args->number_of_philosophers < 0 || args->time_to_die < 0
 		|| args->time_to_eat < 0 || args->time_to_sleep < 0 || (argc == 6
 			&& args->number_of_times_each_philosopher_must_eat < 0))

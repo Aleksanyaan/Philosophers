@@ -6,7 +6,7 @@ HEADER      = ./includes/philo.h
 CC          = cc
 FLAGS       = -Wall -Wextra -Werror
 
-SRC  = philo.c parsing.c utils.c init.c\
+SRC  = main.c philo.c parsing.c utils.c init.c forks.c actions.c routine.c free.c \
 
 BUILD_DIR   = build
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
