@@ -1,6 +1,6 @@
 #include "./includes/philo.h"
 
-void	death_monitor(t_philo *philos, t_args *args)
+void	death_monitor(t_args *args)
 {
 	int	i;
 
@@ -9,10 +9,10 @@ void	death_monitor(t_philo *philos, t_args *args)
 		i = 0;
 		while (i < args->number_of_philosophers)
 		{
-			if ((get_time_ms() - philos[i].last_meal) > args->time_to_die)
+			if ((get_time_ms() - args->philo[i].last_meal) > args->time_to_die)
 			{
 				args->stop_simulation = 1;
-				print_status(&philos[i], "died");
+				print_status(&args->philo[i], "died");
 				return ;
 			}
 			i++;

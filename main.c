@@ -1,13 +1,13 @@
 #include "./includes/philo.h"
 
-void	print_philos(t_philo *philos, t_args *args)
+void	print_philos(t_args *args)
 {
 	int	i;
 
 	i = 0;
 	while (i < args->number_of_philosophers)
 	{
-		printf("Philosopher %d:\n", philos[i].id);
+		printf("Philosopher %d:\n", args->philo[i].id);
 		i++;
 	}
 }
@@ -15,7 +15,6 @@ void	print_philos(t_philo *philos, t_args *args)
 int	main(int argc, char *argv[])
 {
 	t_args *args;
-	t_philo	*philos;
 
 	args = init_args(argc, argv);
 	if (!parsing(argc, args))
@@ -31,12 +30,11 @@ int	main(int argc, char *argv[])
 		printf("Meals required: unlimited\n");
 
 	init_forks(args);
-	philos = init_philos(args);
-	print_philos(philos, args);
-	create_philos(philos, args);
-
-	death_monitor(philos, args);
-	join_philos(philos);
+	init_philos(args);
+	print_philos(args);
+	create_philos(args);
+	death_monitor(args);
+	join_philos(args);
 	free_args(args);
 	return (0);
 }

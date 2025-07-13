@@ -17,28 +17,27 @@ void	init_forks(t_args *args)
 	}
 }
 
-t_philo	*init_philos(t_args *args)
+void	init_philos(t_args *args)
 {
-	t_philo	*philos;
-	int		i;
+	int	i;
 
-	philos = malloc(sizeof(t_philo) * args->number_of_philosophers);
-	if (!philos)
-		return (NULL);
+	args->philo = malloc(sizeof(t_philo) * args->number_of_philosophers);
+	if (!args->philo)
+		return ;
 	i = 0;
 	while (i < args->number_of_philosophers)
 	{
-		philos[i].id = i + 1;
-		philos[i].meals_eaten = 0;
-		philos[i].last_meal = get_time_ms();
-		philos[i].args = args;
-		philos[i].left_fork = &args->forks[i];
-		philos[i].right_fork = &args->forks[(i + 1)
+		args->philo[i].id = i + 1;
+		args->philo[i].meals_eaten = 0;
+		args->philo[i].last_meal = get_time_ms();
+		args->philo[i].args = args;
+		args->philo[i].left_fork = &args->forks[i];
+		args->philo[i].right_fork = &args->forks[(i + 1)
 			% args->number_of_philosophers];
 		i++;
 	}
-	return (philos);
 }
+
 
 t_args	*init_args(int argc, char *argv[])
 {

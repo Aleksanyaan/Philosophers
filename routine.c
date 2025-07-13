@@ -9,15 +9,7 @@ void	*philo_routine(void *arg)
 
 	while (!philo->args->stop_simulation)
 	{
-		take_forks(philo);
-		print_status(philo, "is eating");
-
-		usleep(philo->args->time_to_eat);
-		philo->last_meal = get_time_ms();
-		philo->meals_eaten++;
-
-
-		put_down_forks(philo);
+		eat(philo);
 
 		if (philo->args->number_of_times_each_philosopher_must_eat != -1
 			&& philo->meals_eaten >= philo->args->number_of_times_each_philosopher_must_eat)
