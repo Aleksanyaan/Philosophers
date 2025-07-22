@@ -22,7 +22,7 @@ void	eat(t_philo *philo)
 {
 	take_forks(philo);
 	print_status(philo, "is eating");
-	usleep(philo->args->time_to_eat);
+	usleep(philo->args->time_to_eat * 1000);
 	philo->last_meal = get_time_ms();
 	philo->meals_eaten++;
 	if (philo->id % 2 == 0)

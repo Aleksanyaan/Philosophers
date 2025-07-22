@@ -21,7 +21,9 @@ typedef struct s_args
 	int					number_of_times_each_philosopher_must_eat;
 	long				start_time;
 	int					stop_simulation;
+	pthread_t			thread_die;
 	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		last_meal_time;
 	pthread_mutex_t		*forks;
 	t_philo				*philo;
 }						t_args;
@@ -53,6 +55,7 @@ void					join_philos(t_args *args);
 // utils.h
 void					print_status(t_philo *philo, const char *msg);
 long					get_time_ms(void);
+void					ft_usleep(int ms);
 
 // forks.h
 void					take_forks(t_philo *philo);
@@ -62,7 +65,7 @@ void					eat(t_philo *philo);
 void					*philo_routine(void *arg);
 
 // actions.c
-void					death_monitor(t_args *args);
+int						death_monitor(void *data);
 
 // free.c
 void					free_args(t_args *args);

@@ -57,10 +57,3 @@ t_args	*init_args(int argc, char *argv[])
 	args->stop_simulation = 0;
 	return (args);
 }
-
-void	*print(void *arg)
-{
-	(void)arg;
-	printf("Thread is created!\n");
-	return (NULL);
-}

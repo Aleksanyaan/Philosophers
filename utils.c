@@ -18,3 +18,17 @@ void	print_status(t_philo *philo, const char *msg)
 		printf("%ld %d %s\n", timestamp, philo->id, msg);
 	pthread_mutex_unlock(&philo->args->print_mutex);
 }
+
+void	ft_usleep(int ms)
+{
+	long	start;
+	long	now;
+
+	start = get_time_ms();
+	now = get_time_ms();
+	while (now - start < ms)
+	{
+		usleep(100);
+		now = get_time_ms();
+	}
+}

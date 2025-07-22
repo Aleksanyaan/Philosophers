@@ -33,8 +33,12 @@ int	main(int argc, char *argv[])
 	init_philos(args);
 	print_philos(args);
 	create_philos(args);
-	death_monitor(args);
-	join_philos(args);
+	if (death_monitor(args))
+	{
+		join_philos(args);
+		free_args(args);
+		return (0);
+	}
 	free_args(args);
 	return (0);
 }

@@ -5,7 +5,7 @@ void	*philo_routine(void *arg)
 	t_philo	*philo = (t_philo *)arg;
 
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(2500);
 
 	while (!philo->args->stop_simulation)
 	{

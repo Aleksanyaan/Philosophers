@@ -1,9 +1,11 @@
 #include "./includes/philo.h"
 
-void	death_monitor(t_args *args)
+int	death_monitor(void *data)
 {
 	int	i;
-
+	t_args	*args;
+	
+	args = (t_args *)data;
 	while (!args->stop_simulation)
 	{
 		i = 0;
@@ -13,10 +15,11 @@ void	death_monitor(t_args *args)
 			{
 				args->stop_simulation = 1;
 				print_status(&args->philo[i], "died");
-				return ;
+				return (1);
 			}
 			i++;
 		}
 		usleep(1000);
 	}
+	return (0);
 }
