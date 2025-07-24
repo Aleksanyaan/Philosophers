@@ -5,6 +5,9 @@ void	init_forks(t_args *args)
 	int	i;
 
 	pthread_mutex_init(&args->print_mutex, NULL);
+	pthread_mutex_init(&args->stop_mutex, NULL);
+	pthread_mutex_init(&args->last_meal_mutex, NULL);
+	pthread_mutex_init(&args->meals_eaten_mutex, NULL);
 	args->forks = malloc(sizeof(pthread_mutex_t)
 			* args->number_of_philosophers);
 	if (!args->forks)
@@ -29,7 +32,7 @@ void	init_philos(t_args *args)
 	{
 		args->philo[i].id = i + 1;
 		args->philo[i].meals_eaten = 0;
-		args->philo[i].last_meal = get_time_ms();
+		args->philo[i].last_meal = args->start_time;
 		args->philo[i].args = args;
 		args->philo[i].left_fork = &args->forks[i];
 		args->philo[i].right_fork = &args->forks[(i + 1)
@@ -37,7 +40,6 @@ void	init_philos(t_args *args)
 		i++;
 	}
 }
-
 
 t_args	*init_args(int argc, char *argv[])
 {
@@ -56,4 +58,31 @@ t_args	*init_args(int argc, char *argv[])
 	args->start_time = get_time_ms();
 	args->stop_simulation = 0;
 	return (args);
+}
+
+void	free_args(t_args *args)
+{
+	int i;
+
+	if (!args)
+		return ;
+	if (args->forks)
+	{
+		i = 0;
+		while (i < args->number_of_philosophers)
+		{
+			pthread_mutex_destroy(&args->forks[i]);
+			i++;
+		}
+		free(args->forks);
+		args->forks = NULL;
+	}
+	pthread_mutex_destroy(&args->print_mutex);
+	if (args->philo)
+	{
+		free(args->philo);
+		args->philo = NULL;
+	}
+
+	free(args);
 }

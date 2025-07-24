@@ -23,7 +23,9 @@ typedef struct s_args
 	int					stop_simulation;
 	pthread_t			thread_die;
 	pthread_mutex_t		print_mutex;
-	pthread_mutex_t		last_meal_time;
+	pthread_mutex_t		last_meal_mutex;
+	pthread_mutex_t		meals_eaten_mutex;
+	pthread_mutex_t		stop_mutex;
 	pthread_mutex_t		*forks;
 	t_philo				*philo;
 }						t_args;

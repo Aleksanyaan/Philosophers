@@ -14,8 +14,10 @@ void	print_status(t_philo *philo, const char *msg)
 
 	pthread_mutex_lock(&philo->args->print_mutex);
 	timestamp = get_time_ms() - philo->args->start_time;
+	pthread_mutex_lock(&philo->args->stop_mutex);
 	if (!philo->args->stop_simulation)
 		printf("%ld %d %s\n", timestamp, philo->id, msg);
+	pthread_mutex_unlock(&philo->args->stop_mutex);
 	pthread_mutex_unlock(&philo->args->print_mutex);
 }
 

@@ -1,44 +1,25 @@
 #include "./includes/philo.h"
 
-void	print_philos(t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (i < args->number_of_philosophers)
-	{
-		printf("Philosopher %d:\n", args->philo[i].id);
-		i++;
-	}
-}
-
 int	main(int argc, char *argv[])
 {
-	t_args *args;
+	t_args		*args;
+	pthread_t	monitor_thread;
 
 	args = init_args(argc, argv);
 	if (!parsing(argc, args))
 		return (1);
-	printf("Parsed OK:\n");
-	printf("Philosophers: %d\n", args->number_of_philosophers);
-	printf("Time to die: %d\n", args->time_to_die);
-	printf("Time to eat: %d\n", args->time_to_eat);
-	printf("Time to sleep: %d\n", args->time_to_sleep);
-	if (args->number_of_times_each_philosopher_must_eat != -1)
-		printf("Meals required: %d\n", args->number_of_times_each_philosopher_must_eat);
-	else
-		printf("Meals required: unlimited\n");
-
 	init_forks(args);
 	init_philos(args);
-	print_philos(args);
 	create_philos(args);
-	if (death_monitor(args))
+	if (pthread_create(&monitor_thread, NULL, (void *(*)(void *))death_monitor,
+			args) != 0)
 	{
-		join_philos(args);
+		printf("Error: Failed to create death monitor thread\n");
 		free_args(args);
-		return (0);
+		return (1);
 	}
+	pthread_join(monitor_thread, NULL);
+	join_philos(args);
 	free_args(args);
 	return (0);
 }

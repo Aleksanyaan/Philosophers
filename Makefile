@@ -3,10 +3,10 @@ NAME = philo
 INCLUDES    = -I./includes
 HEADER      = ./includes/philo.h
 
-CC          = cc
-FLAGS       = -Wall -Wextra -Werror -fsanitize=address -g
+CC          = clang
+FLAGS       = -Wall -Wextra -Werror
 
-SRC  = main.c philo.c parsing.c utils.c init.c forks.c actions.c routine.c free.c \
+SRC  = main.c philo.c parsing.c utils.c init.c forks.c routine.c \
 
 BUILD_DIR   = build
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
