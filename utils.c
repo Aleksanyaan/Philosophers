@@ -21,16 +21,24 @@ void	print_status(t_philo *philo, const char *msg)
 	pthread_mutex_unlock(&philo->args->print_mutex);
 }
 
-void	ft_usleep(int ms)
+void	ft_usleep(t_philo *philo, long time)
 {
 	long	start;
 	long	now;
 
 	start = get_time_ms();
-	now = get_time_ms();
-	while (now - start < ms)
+	while (1)
 	{
-		usleep(100);
 		now = get_time_ms();
+		if (now - start >= time)
+			break ;
+		pthread_mutex_lock(&philo->args->stop_mutex);
+		if (philo->args->stop_simulation)
+		{
+			pthread_mutex_unlock(&philo->args->stop_mutex);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->args->stop_mutex);
+		usleep(100);
 	}
 }

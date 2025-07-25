@@ -46,9 +46,9 @@ int						ft_atoi(const char *str);
 int						parsing(int argc, t_args *args);
 
 // init.c
-void					init_forks(t_args *args);
+int						init_mutexes(t_args *args);
 t_args					*init_args(int argc, char *argv[]);
-void					init_philos(t_args *args);
+int						init_philos(t_args *args);
 
 // philo.c
 void					create_philos(t_args *args);
@@ -57,7 +57,7 @@ void					join_philos(t_args *args);
 // utils.h
 void					print_status(t_philo *philo, const char *msg);
 long					get_time_ms(void);
-void					ft_usleep(int ms);
+void					ft_usleep(t_philo *philo, long time);
 
 // forks.h
 void					take_forks(t_philo *philo);

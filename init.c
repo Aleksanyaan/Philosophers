@@ -1,6 +1,6 @@
 #include "./includes/philo.h"
 
-void	init_forks(t_args *args)
+int	init_mutexes(t_args *args)
 {
 	int	i;
 
@@ -11,22 +11,23 @@ void	init_forks(t_args *args)
 	args->forks = malloc(sizeof(pthread_mutex_t)
 			* args->number_of_philosophers);
 	if (!args->forks)
-		return ;
+		return (0);
 	i = 0;
 	while (i < args->number_of_philosophers)
 	{
 		pthread_mutex_init(&args->forks[i], NULL);
 		i++;
 	}
+	return (1);
 }
 
-void	init_philos(t_args *args)
+int	init_philos(t_args *args)
 {
 	int	i;
 
 	args->philo = malloc(sizeof(t_philo) * args->number_of_philosophers);
 	if (!args->philo)
-		return ;
+		return (0);
 	i = 0;
 	while (i < args->number_of_philosophers)
 	{
@@ -39,11 +40,12 @@ void	init_philos(t_args *args)
 			% args->number_of_philosophers];
 		i++;
 	}
+	return (1);
 }
 
 t_args	*init_args(int argc, char *argv[])
 {
-	t_args *args;
+	t_args	*args;
 
 	args = malloc(sizeof(t_args));
 	if (!args)
@@ -55,8 +57,12 @@ t_args	*init_args(int argc, char *argv[])
 	args->number_of_times_each_philosopher_must_eat = -1;
 	if (argc == 6)
 		args->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-	args->start_time = get_time_ms();
 	args->stop_simulation = 0;
+	if (init_mutexes(args) == 0)
+		free_args(args);
+	if (init_philos(args) == 0)
+		free_args(args);
+	args->start_time = get_time_ms();
 	return (args);
 }
 

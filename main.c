@@ -8,7 +8,7 @@ int	main(int argc, char *argv[])
 	args = init_args(argc, argv);
 	if (!parsing(argc, args))
 		return (1);
-	init_forks(args);
+	init_mutexes(args);
 	init_philos(args);
 	create_philos(args);
 	if (pthread_create(&monitor_thread, NULL, (void *(*)(void *))death_monitor,
