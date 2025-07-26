@@ -54,9 +54,9 @@ t_args	*init_args(int argc, char *argv[])
 	args->time_to_die = ft_atoi(argv[2]);
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
-	args->number_of_times_each_philosopher_must_eat = -1;
+	args->must_eat_number = -1;
 	if (argc == 6)
-		args->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+		args->must_eat_number = ft_atoi(argv[5]);
 	args->stop_simulation = 0;
 	if (init_mutexes(args) == 0)
 		free_args(args);
@@ -68,7 +68,7 @@ t_args	*init_args(int argc, char *argv[])
 
 void	free_args(t_args *args)
 {
-	int i;
+	int	i;
 
 	if (!args)
 		return ;
@@ -89,6 +89,5 @@ void	free_args(t_args *args)
 		free(args->philo);
 		args->philo = NULL;
 	}
-
 	free(args);
 }

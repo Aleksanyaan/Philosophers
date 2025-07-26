@@ -4,7 +4,7 @@ INCLUDES    = -I./includes
 HEADER      = ./includes/philo.h
 
 CC          = clang
-FLAGS       = -Wall -Wextra -Werror
+FLAGS       = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC  = main.c philo.c parsing.c utils.c init.c forks.c routine.c \
 

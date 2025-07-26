@@ -8,6 +8,23 @@ long	get_time_ms(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
+void	stop_simulation(t_args *args)
+{
+	pthread_mutex_lock(&args->stop_mutex);
+	args->stop_simulation = 1;
+	pthread_mutex_unlock(&args->stop_mutex);
+}
+
+int	is_simulation_stopped(t_args *args)
+{
+	int	result;
+
+	pthread_mutex_lock(&args->stop_mutex);
+	result = args->stop_simulation;
+	pthread_mutex_unlock(&args->stop_mutex);
+	return (result);
+}
+
 void	print_status(t_philo *philo, const char *msg)
 {
 	long	timestamp;

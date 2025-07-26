@@ -36,7 +36,7 @@ int	parsing(int argc, t_args *args)
 		return (printf("Wrong number of arguments!\n"), 0);
 	if (args->number_of_philosophers < 0 || args->time_to_die < 0
 		|| args->time_to_eat < 0 || args->time_to_sleep < 0 || (argc == 6
-			&& args->number_of_times_each_philosopher_must_eat < 0))
+			&& args->must_eat_number < 0))
 	{
 		printf("Error: invalid arguments\n");
 		return (0);
