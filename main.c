@@ -16,21 +16,15 @@ int	main(int argc, char *argv[])
 	pthread_t	monitor_thread;
 
 	args = init_args(argc, argv);
-	if (!parsing(argc, args))
-		return (1);
+	if (!args || !parsing(argc, args))
+		return (free_args(args), 1);
 	if (args->number_of_philosophers == 1)
 		return (one_philo(args), 0);
-	init_mutexes(args);
-	init_philos(args);
 	create_philos(args);
-	if (pthread_create(&monitor_thread, NULL, (void *(*)(void *))death_monitor,
-		args) != 0)
-	{
-		printf("Error: Failed to create death monitor thread\n");
-		free_args(args);
-		return (1);
-	}
-	pthread_join(monitor_thread, NULL);
+	if (pthread_create(&monitor_thread, NULL, (void *)death_monitor, args) != 0)
+		return (printf("Error: Failed to create death monitor thread\n"), 1);
+	else
+		pthread_join(monitor_thread, NULL);
 	join_philos(args);
 	free_args(args);
 	return (0);

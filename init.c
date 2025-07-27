@@ -59,10 +59,10 @@ t_args	*init_args(int argc, char *argv[])
 		args->must_eat_number = ft_atoi(argv[5]);
 	args->stop_simulation = 0;
 	if (init_mutexes(args) == 0)
-		free_args(args);
-	if (init_philos(args) == 0)
-		free_args(args);
+		return (free_args(args), NULL);
 	args->start_time = get_time_ms();
+	if (init_philos(args) == 0)
+		return (free_args(args), NULL);
 	return (args);
 }
 
@@ -84,6 +84,9 @@ void	free_args(t_args *args)
 		args->forks = NULL;
 	}
 	pthread_mutex_destroy(&args->print_mutex);
+	pthread_mutex_destroy(&args->stop_mutex);
+	pthread_mutex_destroy(&args->last_meal_mutex);
+	pthread_mutex_destroy(&args->meals_eaten_mutex);
 	if (args->philo)
 	{
 		free(args->philo);

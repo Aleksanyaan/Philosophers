@@ -28,13 +28,14 @@ int	is_all_eaten(t_args *args)
 	return (0);
 }
 
-void	get_time_since_last_meal(t_args *args)
+long	get_time_since_last_meal(t_philo *philo)
 {
 	long	time_since_last_meal;
 
-	pthread_mutex_lock(&args->last_meal_mutex);
-	time_since_last_meal = get_time_ms() - args->philo[i].last_meal;
-	pthread_mutex_unlock(&args->last_meal_mutex);
+	pthread_mutex_lock(&philo->args->last_meal_mutex);
+	time_since_last_meal = get_time_ms() - philo->last_meal;
+	pthread_mutex_unlock(&philo->args->last_meal_mutex);
+	return (time_since_last_meal);
 }
 
 int	death_monitor(void *data)
@@ -49,7 +50,7 @@ int	death_monitor(void *data)
 		i = 0;
 		while (i < args->number_of_philosophers)
 		{
-			time_since_last_meal = get_time_since_last_meal(args);
+			time_since_last_meal = get_time_since_last_meal(&args->philo[i]);
 			if (time_since_last_meal > args->time_to_die)
 			{
 				stop_simulation(args);
@@ -73,6 +74,8 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->args->stop_mutex);

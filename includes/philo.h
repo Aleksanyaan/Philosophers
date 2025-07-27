@@ -66,8 +66,6 @@ void					eat(t_philo *philo);
 
 // routine.c
 void					*philo_routine(void *arg);
-
-// actions.c
 int						death_monitor(void *data);
 
 // free.c
