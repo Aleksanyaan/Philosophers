@@ -13,7 +13,8 @@ void	one_philo(t_args *args)
 int	main(int argc, char *argv[])
 {
 	t_args		*args;
-	pthread_t	monitor_thread;
+	pthread_t	die_monitor_thread;
+	pthread_t	must_eat_monitor_thread;
 
 	args = init_args(argc, argv);
 	if (!args || !parsing(argc, args))
@@ -21,10 +22,15 @@ int	main(int argc, char *argv[])
 	if (args->number_of_philosophers == 1)
 		return (one_philo(args), 0);
 	create_philos(args);
-	if (pthread_create(&monitor_thread, NULL, (void *)death_monitor, args) != 0)
+	if (pthread_create(&die_monitor_thread, NULL, (void *)death_monitor,
+			args) != 0 || pthread_create(&must_eat_monitor_thread, NULL,
+			(void *)must_eat_monitor, args) != 0)
 		return (printf("Error: Failed to create death monitor thread\n"), 1);
 	else
-		pthread_join(monitor_thread, NULL);
+	{
+		pthread_join(die_monitor_thread, NULL);
+		pthread_join(must_eat_monitor_thread, NULL);
+	}
 	join_philos(args);
 	free_args(args);
 	return (0);

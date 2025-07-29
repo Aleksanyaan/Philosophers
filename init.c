@@ -8,6 +8,7 @@ int	init_mutexes(t_args *args)
 	pthread_mutex_init(&args->stop_mutex, NULL);
 	pthread_mutex_init(&args->last_meal_mutex, NULL);
 	pthread_mutex_init(&args->meals_eaten_mutex, NULL);
+	pthread_mutex_init(&args->full_philos_mutex, NULL);
 	args->forks = malloc(sizeof(pthread_mutex_t)
 			* args->number_of_philosophers);
 	if (!args->forks)
@@ -87,6 +88,7 @@ void	free_args(t_args *args)
 	pthread_mutex_destroy(&args->stop_mutex);
 	pthread_mutex_destroy(&args->last_meal_mutex);
 	pthread_mutex_destroy(&args->meals_eaten_mutex);
+	pthread_mutex_destroy(&args->full_philos_mutex);
 	if (args->philo)
 	{
 		free(args->philo);

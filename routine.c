@@ -1,29 +1,29 @@
 #include "./includes/philo.h"
 
-int	is_all_eaten(t_args *args)
+int	must_eat_monitor(void *data)
 {
-	int	i;
-	int	finished;
+	t_args	*args;
 
-	if (args->must_eat_number == -1)
-		return (0);
-	finished = 0;
-	i = 0;
-	while (i < args->number_of_philosophers)
+	args = (t_args *)data;
+	while (1)
 	{
+		usleep(100);
+		pthread_mutex_lock(&args->stop_mutex);
+		if (args->stop_simulation)
+			return (pthread_mutex_unlock(&args->stop_mutex), 0);
+		pthread_mutex_unlock(&args->stop_mutex);
 		pthread_mutex_lock(&args->meals_eaten_mutex);
-		if (args->philo[i].meals_eaten >= args->must_eat_number)
-			finished++;
-		pthread_mutex_unlock(&args->meals_eaten_mutex);
-		i++;
-	}
-	if (finished == args->number_of_philosophers)
-	{
-		stop_simulation(args);
-		pthread_mutex_lock(&args->print_mutex);
-		printf("All philosophers have eaten %d times\n", args->must_eat_number);
-		pthread_mutex_unlock(&args->print_mutex);
-		return (1);
+		if (args->full_philos_count == args->number_of_philosophers)
+		{
+			pthread_mutex_unlock(&args->meals_eaten_mutex);
+			stop_simulation(args);
+			pthread_mutex_lock(&args->print_mutex);
+			printf("%ld All philosophers have eaten %d times\n",
+				get_time_ms() - args->start_time, args->must_eat_number);
+			return (pthread_mutex_unlock(&args->print_mutex), 0);
+		}
+		else
+			pthread_mutex_unlock(&args->meals_eaten_mutex);
 	}
 	return (0);
 }
@@ -62,8 +62,6 @@ int	death_monitor(void *data)
 			}
 			i++;
 		}
-		if (is_all_eaten(args))
-			break ;
 		usleep(1000);
 	}
 	return (0);

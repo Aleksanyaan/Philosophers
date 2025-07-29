@@ -21,6 +21,8 @@ typedef struct s_args
 	int					must_eat_number;
 	long				start_time;
 	int					stop_simulation;
+	int					full_philos_count;
+	pthread_mutex_t		full_philos_mutex;
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		last_meal_mutex;
 	pthread_mutex_t		meals_eaten_mutex;
@@ -67,6 +69,7 @@ void					eat(t_philo *philo);
 // routine.c
 void					*philo_routine(void *arg);
 int						death_monitor(void *data);
+int						must_eat_monitor(void *data);
 
 // free.c
 void					free_args(t_args *args);

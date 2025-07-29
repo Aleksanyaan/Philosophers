@@ -26,9 +26,6 @@ void	eat(t_philo *philo)
 	philo->last_meal = get_time_ms();
 	pthread_mutex_unlock(&philo->args->last_meal_mutex);
 	ft_usleep(philo, philo->args->time_to_eat);
-	pthread_mutex_lock(&philo->args->meals_eaten_mutex);
-	philo->meals_eaten++;
-	pthread_mutex_unlock(&philo->args->meals_eaten_mutex);
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_unlock(philo->right_fork);
@@ -38,5 +35,11 @@ void	eat(t_philo *philo)
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
+	}
+	if (++philo->meals_eaten == philo->args->must_eat_number)
+	{
+		pthread_mutex_lock(&philo->args->meals_eaten_mutex);
+		philo->args->full_philos_count++;
+		pthread_mutex_unlock(&philo->args->meals_eaten_mutex);
 	}
 }
