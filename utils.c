@@ -56,6 +56,6 @@ void	ft_usleep(t_philo *philo, long time)
 			return ;
 		}
 		pthread_mutex_unlock(&philo->args->stop_mutex);
-		usleep(100);
+		// usleep(100);
 	}
 }

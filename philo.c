@@ -10,7 +10,6 @@ void	create_philos(t_args *args)
 		if (pthread_create(&args->philo[i].thread, NULL, philo_routine,
 				&args->philo[i]))
 			return ;
-		usleep(100);
 	}
 }
 
