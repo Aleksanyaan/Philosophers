@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 13:27:29 by zaleksan          #+#    #+#             */
+/*   Updated: 2025/08/11 13:27:30 by zaleksan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/philo.h"
 
 int	init_mutexes(t_args *args)
@@ -77,10 +89,7 @@ void	free_args(t_args *args)
 	{
 		i = 0;
 		while (i < args->number_of_philosophers)
-		{
-			pthread_mutex_destroy(&args->forks[i]);
-			i++;
-		}
+			pthread_mutex_destroy(&args->forks[i++]);
 		free(args->forks);
 		args->forks = NULL;
 	}

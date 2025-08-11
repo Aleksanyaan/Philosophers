@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 13:27:24 by zaleksan          #+#    #+#             */
+/*   Updated: 2025/08/11 13:27:25 by zaleksan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/philo.h"
 
 long	get_time_since_last_meal(t_philo *philo)
@@ -67,16 +79,21 @@ int	death_monitor(void *data)
 	return (0);
 }
 
+static void	philo_prepare(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+		usleep(philo->args->time_to_eat * 1000);
+	pthread_mutex_lock(&philo->args->last_meal_mutex);
+	philo->last_meal = philo->args->start_time;
+	pthread_mutex_unlock(&philo->args->last_meal_mutex);
+}
+
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->args->last_meal_mutex);
-	philo->last_meal = philo->args->start_time;
-	pthread_mutex_unlock(&philo->args->last_meal_mutex);
-	if (philo->id % 2 == 0)
-		usleep(10000);
+	philo_prepare(philo);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->args->stop_mutex);

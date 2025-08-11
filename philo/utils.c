@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 13:27:31 by zaleksan          #+#    #+#             */
+/*   Updated: 2025/08/11 13:27:32 by zaleksan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/philo.h"
 
 long	get_time_ms(void)
@@ -56,6 +68,5 @@ void	ft_usleep(t_philo *philo, long time)
 			return ;
 		}
 		pthread_mutex_unlock(&philo->args->stop_mutex);
-		// usleep(100);
 	}
 }

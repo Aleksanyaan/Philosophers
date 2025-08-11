@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 13:27:54 by zaleksan          #+#    #+#             */
+/*   Updated: 2025/08/11 13:55:50 by zaleksan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -42,36 +53,23 @@ typedef struct s_philo
 	pthread_mutex_t		*right_fork;
 }						t_philo;
 
-// parsing.c
 int						ft_atoi(const char *str);
 int						parsing(int argc, t_args *args);
-
-// init.c
 int						init_mutexes(t_args *args);
 t_args					*init_args(int argc, char *argv[]);
 int						init_philos(t_args *args);
-
-// philo.c
 void					create_philos(t_args *args);
 void					join_philos(t_args *args);
-
-// utils.h
 void					print_status(t_philo *philo, const char *msg);
 long					get_time_ms(void);
 void					ft_usleep(t_philo *philo, long time);
 void					stop_simulation(t_args *args);
 int						is_simulation_stopped(t_args *args);
-
-// forks.h
 void					take_forks(t_philo *philo);
 void					eat(t_philo *philo);
-
-// routine.c
 void					*philo_routine(void *arg);
 int						death_monitor(void *data);
 int						must_eat_monitor(void *data);
-
-// free.c
 void					free_args(t_args *args);
 
 #endif
