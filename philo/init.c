@@ -6,7 +6,7 @@
 /*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:27:29 by zaleksan          #+#    #+#             */
-/*   Updated: 2025/08/11 13:27:30 by zaleksan         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:23:47 by zaleksan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_args	*init_args(int argc, char *argv[])
 	if (!args)
 		return (NULL);
 	args->number_of_philosophers = ft_atoi(argv[1]);
+	args->full_philos_count = 0;
 	args->time_to_die = ft_atoi(argv[2]);
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);

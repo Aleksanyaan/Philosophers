@@ -6,7 +6,7 @@
 /*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:27:24 by zaleksan          #+#    #+#             */
-/*   Updated: 2025/08/11 13:27:25 by zaleksan         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:14:09 by zaleksan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	must_eat_monitor(void *data)
 			pthread_mutex_lock(&args->print_mutex);
 			printf("%ld All philosophers have eaten %d times\n", get_time_ms()
 				- args->start_time, args->must_eat_number);
-			args->stop_simulation = 1;
+			stop_simulation(args);
 			return (pthread_mutex_unlock(&args->print_mutex), 0);
 		}
 		else

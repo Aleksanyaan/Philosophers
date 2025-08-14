@@ -6,7 +6,7 @@
 /*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:27:54 by zaleksan          #+#    #+#             */
-/*   Updated: 2025/08/11 13:55:50 by zaleksan         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:25:12 by zaleksan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_args
 	pthread_mutex_t		stop_mutex;
 	pthread_mutex_t		*forks;
 	t_philo				*philo;
+	pthread_t			die_monitor_thread;
+	pthread_t			must_eat_monitor_thread;
 }						t_args;
 
 typedef struct s_philo
@@ -54,7 +56,7 @@ typedef struct s_philo
 }						t_philo;
 
 int						ft_atoi(const char *str);
-int						parsing(int argc, t_args *args);
+int						parsing(int argc, char *argv[]);
 int						init_mutexes(t_args *args);
 t_args					*init_args(int argc, char *argv[]);
 int						init_philos(t_args *args);

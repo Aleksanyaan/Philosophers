@@ -3,7 +3,7 @@ NAME = philo
 INCLUDES    = -I./includes
 HEADER      = ./includes/philo.h
 
-CC          = clang
+CC          = cc
 FLAGS       = -Wall -Wextra -Werror
 
 SRC  = main.c philo.c parsing.c utils.c init.c forks.c routine.c \

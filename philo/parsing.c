@@ -6,7 +6,7 @@
 /*   By: zaleksan <zaleksan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:28:14 by zaleksan          #+#    #+#             */
-/*   Updated: 2025/08/11 13:28:15 by zaleksan         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:00:15 by zaleksan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ int	ft_atoi(const char *str)
 	return (res);
 }
 
-int	parsing(int argc, t_args *args)
+int	parsing(int argc, char *argv[])
 {
 	if (argc != 5 && argc != 6)
-		return (printf("Wrong number of arguments!\n"), 0);
-	if (args->number_of_philosophers < 0 || args->time_to_die < 0
-		|| args->time_to_eat < 0 || args->time_to_sleep < 0 || (argc == 6
-			&& args->must_eat_number < 0))
 	{
-		printf("Error: invalid arguments\n");
+		printf("Wrong number of arguments!\n");
+		return (0);
+	}
+	if (ft_atoi(argv[1]) <= 0 || ft_atoi(argv[2]) < 0
+		|| ft_atoi(argv[3]) < 0 || ft_atoi(argv[4]) < 0
+		|| (argc == 6 && ft_atoi(argv[5]) <= 0))
+	{
+		printf("Error: Invalid arguments\n");
 		return (0);
 	}
 	return (1);
